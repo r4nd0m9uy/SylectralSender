@@ -36,7 +36,7 @@ $replaceArray = [
 'xzuuml' => 'ü',
 ];
 
-$message = str_replace(array_keys($replaceArray), array_values($replaceArray), $message)
+$message = str_replace(array_keys($replaceArray), array_values($replaceArray), $message);
 
 //var_dump(prepareMessage($contact, $name, $message, $date));
 //var_dump($date);
