@@ -1,6 +1,6 @@
 <?php
 $IP=$_SERVER['REMOTE_ADDR'];
-if($IP=='***REMOVED***') {
+if($IP=='94.177.242.196') {
 	echo "Access Granted";
 }else{
 	header("HTTP/1.1 403 Forbidden" );
