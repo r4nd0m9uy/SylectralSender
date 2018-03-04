@@ -6,7 +6,7 @@ This file must check if there are messages to be sent form the 'prepared_texts' 
 If so, they must be sent and transferd to the 'texts' table by using the transferPreparedMessagetoSentMessages function.
 */
 
-if($_SERVER['REMOTE_ADDR']=='***REMOVED***') {
+if($_SERVER['REMOTE_ADDR']=='xxx.xxx.xxx.xxx') { //Check if correct ip accesses this page
 	
 	require('database_connection/interaction.php');
 	
@@ -27,12 +27,12 @@ if($_SERVER['REMOTE_ADDR']=='***REMOVED***') {
 		
 		//SEND THE MESSAGE
 			// Your Account Sid and Auth Token from twilio.com/user/account
-			$sid = "***REMOVED***";
-			$token = "***REMOVED***";
+			$sid = "xxxxx";
+			$token = "xxxxx";
 			$client = new Services_Twilio($sid, $token);
 
 			$message = $client->account->messages->create(array(
-    		"From" => '***REMOVED***', // From a valid Twilio number
+    		"From" => 'xxxxxxxxxxxx', // From a valid Twilio number
     		"To" => $contact,   // Text this number
     		"Body" => $text,
 			));
