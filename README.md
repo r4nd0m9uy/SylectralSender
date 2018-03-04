@@ -26,3 +26,9 @@ Send sms texts using Twillio as SMS service
 
 ### Inbound
 1. Inbound messages are sent to the mail address set in the **mailer.php** file.
+
+## Development
+I'm actively working on this project. If you have questions, ideas for enhancement or if you find any bugs in the scripts, feel free to open an issue!
+
+## Copyright
+This project is licensed under the MIT license. Please feel free to use this code, modify it or redistribute it. 
