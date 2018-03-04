@@ -38,10 +38,14 @@ $replaceArray = [
 
 $message = str_replace(array_keys($replaceArray), array_values($replaceArray), $message);
 
-//var_dump(prepareMessage($contact, $name, $message, $date));
-//var_dump($date);
-echo '<b>Votre message:</b><br><i>'.$message.'</i><br><b>A été envoyé avec succès.</b>';
+var_dump($message);
+$result = prepareMessage($contact, $name, $message, $date);
+var_dump($date);
+if($result) {
+	echo '<b>Votre message:</b><br><i>'.$message.'</i><br><b>A été envoyé avec succès.</b>';
+}else{
+	echo "Erreur. Verifier les logs.";
+}
 exit();
 //die('message envoy&eacute;<script>window.open(\'\', \'_self\', \'\'); window.close();</script>');
-
 ?>
