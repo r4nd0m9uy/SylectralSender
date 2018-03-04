@@ -8,8 +8,8 @@ function getMessagesTable()   {
 	// Check connection
 	if ($conn->connect_error) {
     	die("Connection failed: " . $conn->connect_error);
- 	} 
-	
+ 	}
+
 	$sql = "SELECT * FROM texts ORDER BY id";
 	$result = $conn->query($sql);
 
@@ -32,10 +32,10 @@ function getMessagesFromNumber($number) {
 	if($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
-	
+
 	$sql = "SELECT * FROM texts WHERE contact='$number' ORDER BY id";
 	$result = $conn->query($sql);
-	
+
 	if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) $table[$row['id']] = $row;
 	}else{
@@ -52,8 +52,10 @@ function addMessage($contact, $contact_name, $text, $direction) {
 	// Check connection
 	if ($conn->connect_error) {
     	die("Connection failed: " . $conn->connect_error);
-	} 
+	}
 
+	$text = $conn->real_escape_string($text);
+	
 	$sql = "INSERT INTO texts (contact, contact_name, text, direction)
 	VALUES ('$contact', '$contact_name', '$text', '$direction')";
 
@@ -74,12 +76,16 @@ function prepareMessage($contact, $contact_name, $text, $date) {
 	//Check connection
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
-		
+
 	}
-	
+
+	$text = $conn->real_escape_string($text);
+
+
+
 	$sql = "INSERT INTO prepared_texts (contact, contact_name, text, date)
 	VALUES ('$contact', '$contact_name', '$text', '$date')";
-	
+
 	if($conn->query($sql) === TRUE) {
 		$result = true;
 	}else{
@@ -98,10 +104,10 @@ function getPreparedMessagesYetToBeSent() {
 	if($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
-	
+
 	$sql = "SELECT * FROM prepared_texts WHERE date < NOW() ORDER BY id";
 	$result = $conn->query($sql);
-	
+
 	if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) $table[] = $row;
 	}else{
@@ -118,10 +124,10 @@ function getPreparedMessageByID($id) {
 	if($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
-	
+
 	$sql = "SELECT * FROM prepared_texts WHERE date < NOW() AND id = $id";
 	$result = $conn->query($sql);
-	
+
 	if($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) $table = $row;
 	}else{
@@ -138,7 +144,7 @@ function deletePreparedMessageByID($id) {
 	// Check connection
 	if ($conn->connect_error) {
     	die("Connection failed: " . $conn->connect_error);
-	} 
+	}
 
 	// sql to delete a record
 	$sql = "DELETE FROM prepared_texts WHERE id=$id";
@@ -153,7 +159,7 @@ function deletePreparedMessageByID($id) {
 	$conn->close();
 	return $result;
 }
-	
+
 function transferPreparedMessagetoSentMessages($preparedMessageID) {
 	$message = getPreparedMessageByID($preparedMessageID);
 	$result = addMessage($message['contact'], $message['contact_name'], $message['text'], 'out');
@@ -169,10 +175,12 @@ function getNameofContact($contact) {
 	if($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
-	
+
+
+
 	$sql = "SELECT * FROM texts WHERE contact='$contact' ORDER BY id";
 	$result = $conn->query($sql);
-	
+
 	if($result->num_rows > 0) {
 		$row = $result->fetch_assoc();
 		$result = $row['contact_name'];
@@ -184,4 +192,4 @@ function getNameofContact($contact) {
 }
 
 
-?> 
+?>
